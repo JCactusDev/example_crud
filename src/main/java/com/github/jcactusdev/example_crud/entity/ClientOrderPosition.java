@@ -115,11 +115,11 @@ public class ClientOrderPosition implements Serializable {
 
     @Override
     public int hashCode() {
-        return 11 * ((id == null) ? 0 : id.hashCode())
-                + 6 * ((clientOrder == null) ? 0 : clientOrder.hashCode())
-                + 6 * ((product == null) ? 0 : product.hashCode())
-                + 4 * Double.valueOf(count).hashCode()
-                + 4 * Double.valueOf(price).hashCode();
+        return 31 * ((id == null) ? 0 : id.hashCode())
+                + 31 * ((clientOrder == null) ? 0 : clientOrder.hashCode())
+                + 31 * ((product == null) ? 0 : product.hashCode())
+                + 31 * Double.valueOf(count).hashCode()
+                + 31 * Double.valueOf(price).hashCode();
     }
 
     @Override

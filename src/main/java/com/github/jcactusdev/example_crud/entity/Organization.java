@@ -96,9 +96,9 @@ public class Organization implements Serializable {
 
     @Override
     public int hashCode() {
-        return 11 * ((id == null) ? 0 : id.hashCode())
-                + 10 * ((name == null) ? 0 : name.hashCode())
-                + 10 * ((taxNumber == null) ? 0 : taxNumber.hashCode());
+        return 31 * ((id == null) ? 0 : id.hashCode())
+                + 31 * ((name == null) ? 0 : name.hashCode())
+                + 31 * ((taxNumber == null) ? 0 : taxNumber.hashCode());
     }
 
     @Override

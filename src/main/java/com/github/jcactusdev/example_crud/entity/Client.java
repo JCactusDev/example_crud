@@ -84,8 +84,8 @@ public class Client implements Serializable {
 
     @Override
     public int hashCode() {
-        return 11 * ((this.id == null) ? 0 : this.id.hashCode())
-                + 20 * ((this.name == null) ? 0 : this.name.hashCode());
+        return 31 * ((this.id == null) ? 0 : this.id.hashCode())
+                + 31 * ((this.name == null) ? 0 : this.name.hashCode());
     }
 
     @Override

@@ -66,8 +66,8 @@ public class Product implements Serializable {
 
     @Override
     public int hashCode() {
-        return 11 * ((id == null) ? 0 : id.hashCode())
-                + 20 * ((name == null) ? 0 : name.hashCode());
+        return 31 * ((id == null) ? 0 : id.hashCode())
+                + 31 * ((name == null) ? 0 : name.hashCode());
     }
 
     @Override
