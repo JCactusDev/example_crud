@@ -51,7 +51,7 @@ public class OrganizationRestController {
         return (!service.existsById(id) ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(service.read(id), HttpStatus.OK));
     }
 
-    @PutMapping
+    @PutMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<Organization> updateObject(@RequestBody Organization organization) {
         if (organization == null
                 || organization.getId() == null
@@ -65,7 +65,7 @@ public class OrganizationRestController {
         return result == null ? new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED) : new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @PatchMapping
+    @PatchMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<Organization> updateObjectParams(@RequestBody Organization organization) {
         if (organization == null
                 || organization.getId() == null) {
@@ -78,7 +78,7 @@ public class OrganizationRestController {
         return result == null ? new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED) : new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @DeleteMapping
+    @DeleteMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<Organization> deleteObject(@RequestBody Organization organization) {
         if (organization == null
                 || organization.getId() == null) {

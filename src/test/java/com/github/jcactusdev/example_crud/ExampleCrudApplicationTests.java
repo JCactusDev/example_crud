@@ -1,13 +1,14 @@
 package com.github.jcactusdev.example_crud;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import com.github.jcactusdev.example_crud.controller.OrganizationRestControllerTest;
+import org.junit.platform.suite.api.ExcludePackages;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.SelectPackages;
+import org.junit.platform.suite.api.Suite;
 
-@SpringBootTest
+@Suite
+@SelectClasses({OrganizationRestControllerTest.class})
 class ExampleCrudApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
-
 }
+
