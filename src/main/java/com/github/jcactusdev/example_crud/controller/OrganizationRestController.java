@@ -1,5 +1,6 @@
 package com.github.jcactusdev.example_crud.controller;
 
+import java.util.List;
 import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class OrganizationRestController {
     @Autowired
     private OrganizationServiceImpl service;
 
-    @PostMapping
+    @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<Organization> create(@RequestBody Organization organization) {
         if (organization == null
                 || organization.getId() != null
@@ -36,9 +37,9 @@ public class OrganizationRestController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<Organization>> read() {
-        Iterable<Organization> result = service.read();
-        return (StreamSupport.stream(result.spliterator(), false).count() == 0 ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(result, HttpStatus.OK));
+    public ResponseEntity<List<Organization>> read() {
+        List<Organization> result = service.read();
+        return (result.isEmpty() ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(result, HttpStatus.OK));
     }
 
     @GetMapping("/{id}")

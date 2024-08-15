@@ -19,10 +19,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "client_order")
 public class ClientOrder implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +38,10 @@ public class ClientOrder implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
+
+    @NotNull
+    @Column(name = "order_status")
+    private ClientOrderStatus status;
 
     @OneToMany(mappedBy = "clientOrder", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
@@ -66,6 +72,14 @@ public class ClientOrder implements Serializable {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public ClientOrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ClientOrderStatus status) {
+        this.status = status;
     }
 
     public List<ClientOrderPosition> getPositions() {
@@ -107,6 +121,7 @@ public class ClientOrder implements Serializable {
         // Проверка хранимых значений в свойствах объекта
         return Objects.equals(organization, other.organization)
                 && Objects.equals(client, other.client)
+                && Objects.equals(status, other.status)
                 && Arrays.equals(positions.toArray(), other.positions.toArray());
     }
 
@@ -115,12 +130,13 @@ public class ClientOrder implements Serializable {
         return 31 * ((id == null) ? 0 : id.hashCode())
                 + 31 * ((organization == null) ? 0 : organization.hashCode())
                 + 31 * ((client == null) ? 0 : client.hashCode())
+                + 31 * ((status == null) ? 0 : status.hashCode())
                 + 31 * ((positions == null) ? 0 : positions.hashCode());
     }
 
     @Override
     public String toString() {
-        return "ClientOrder [id=" + id + ", organization=" + organization.toString() + ", client=" + client.toString() + ", positions="
+        return "ClientOrder [id=" + id + ", organization=" + organization.toString() + ", client=" + client.toString() + ", status=" + status.name() + ", positions="
                 + positions.toString() + "]";
     }
 
@@ -132,13 +148,13 @@ public class ClientOrder implements Serializable {
         } catch (CloneNotSupportedException e) {
             cloneObject = new ClientOrder();
         }
-        cloneObject.organization = (Organization) organization.clone();
-        cloneObject.client = (Client) client.clone();
+        cloneObject.organization = organization.clone();
+        cloneObject.client = client.clone();
+        cloneObject.status = status;
         cloneObject.positions = new ArrayList<>();
         for (ClientOrderPosition position : positions) {
             cloneObject.positions.add(position.clone());
         }
         return cloneObject;
     }
-
 }

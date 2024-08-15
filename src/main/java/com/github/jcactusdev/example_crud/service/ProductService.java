@@ -16,6 +16,8 @@ public interface ProductService {
 
     void delete(Product product);
 
+    void deleteAll();
+
     Product findById(Long id);
 
     boolean existsById(Long id);
@@ -23,5 +25,7 @@ public interface ProductService {
     boolean existsAllByIdIn(Iterable<Long> ids);
 
     boolean existsByName(String Name);
+
+    long count();
 
 }

@@ -16,8 +16,12 @@ public interface ClientOrderService {
 
     void delete(ClientOrder clientOrder);
 
+    void deleteAll();
+
     ClientOrder findById(Long id);
 
     boolean existsById(Long id);
+
+    long count();
 
 }

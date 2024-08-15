@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import com.github.jcactusdev.example_crud.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.jcactusdev.example_crud.entity.Client;
-import com.github.jcactusdev.example_crud.entity.ClientOrder;
-import com.github.jcactusdev.example_crud.entity.ClientOrderPosition;
-import com.github.jcactusdev.example_crud.entity.Organization;
 import com.github.jcactusdev.example_crud.service.ClientOrderServiceImpl;
 import com.github.jcactusdev.example_crud.service.ClientServiceImpl;
 import com.github.jcactusdev.example_crud.service.OrganizationServiceImpl;
@@ -50,6 +47,7 @@ public class ClientOrderRestController {
                 || clientOrder.getId() != null
                 || clientOrder.getOrganization() == null
                 || clientOrder.getClient() == null
+                || clientOrder.getStatus() == null
                 || clientOrder.getPositions() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -64,6 +62,11 @@ public class ClientOrderRestController {
         if (client.getId() == null
                 || !clientServiceImpl.existsById(client.getId())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        ClientOrderStatus status = clientOrder.getStatus();
+        if (status == null) {
+            clientOrder.setStatus(ClientOrderStatus.NOTAGREED);
         }
 
         List<ClientOrderPosition> positions = clientOrder.getPositions();

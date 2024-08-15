@@ -51,9 +51,14 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public void deleteAll() {
+        repository.deleteAll();
+    }
+
+    @Override
     public Client findById(Long id) {
         Optional<Client> result = repository.findById(id);
-        return result.isPresent() ? result.get() : null;
+        return result.orElse(null);
     }
 
     @Override
@@ -64,6 +69,11 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public boolean existsByName(String name) {
         return repository.existsByName(name);
+    }
+
+    @Override
+    public long count() {
+        return repository.count();
     }
 
 }

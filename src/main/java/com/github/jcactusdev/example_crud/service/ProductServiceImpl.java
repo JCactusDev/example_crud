@@ -52,9 +52,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public void deleteAll() {
+        repository.deleteAll();
+    }
+
+    @Override
     public Product findById(Long id) {
         Optional<Product> result = repository.findById(id);
-        return result.isPresent() ? result.get() : null;
+        return result.orElse(null);
     }
 
     @Override
@@ -71,6 +76,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public boolean existsByName(String name) {
         return repository.existsByName(name);
+    }
+
+    @Override
+    public long count() {
+        return repository.count();
     }
 
 }

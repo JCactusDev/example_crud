@@ -45,6 +45,9 @@ public class ClientOrderServiceImpl implements ClientOrderService {
         if (clientOrder.getClient() != null) {
             currentClientOrder.setClient(clientOrder.getClient());
         }
+        if (clientOrder.getStatus() != null) {
+            currentClientOrder.setStatus(clientOrder.getStatus());
+        }
         if (clientOrder.getPositions() != null) {
             currentClientOrder.setPositions(clientOrder.getPositions());
         }
@@ -57,14 +60,24 @@ public class ClientOrderServiceImpl implements ClientOrderService {
     }
 
     @Override
+    public void deleteAll() {
+        repository.deleteAll();
+    }
+
+    @Override
     public ClientOrder findById(Long id) {
         Optional<ClientOrder> result = repository.findById(id);
-        return result.isPresent() ? result.get() : null;
+        return result.orElse(null);
     }
 
     @Override
     public boolean existsById(Long id) {
         return repository.existsById(id);
+    }
+
+    @Override
+    public long count() {
+        return repository.count();
     }
 
 }

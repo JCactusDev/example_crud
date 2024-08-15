@@ -1,6 +1,9 @@
 package com.github.jcactusdev.example_crud.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +23,8 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public Iterable<Organization> read() {
-        return repository.findAll();
+    public List<Organization> read() {
+        return StreamSupport.stream(repository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     @Override
@@ -54,9 +57,14 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
+    public void deleteAll() {
+        repository.deleteAll();
+    }
+
+    @Override
     public Organization findById(Long id) {
         Optional<Organization> result = repository.findById(id);
-        return result.isPresent() ? result.get() : null;
+        return result.orElse(null);
     }
 
     @Override
@@ -67,6 +75,11 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     public boolean existsByName(String name) {
         return repository.existsByName(name);
+    }
+
+    @Override
+    public long count() {
+        return repository.count();
     }
 
 }

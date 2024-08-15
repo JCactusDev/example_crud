@@ -16,10 +16,14 @@ public interface ClientService {
 
     void delete(Client client);
 
+    void deleteAll();
+
     Client findById(Long id);
 
     boolean existsById(Long id);
 
     boolean existsByName(String Name);
+
+    long count();
 
 }

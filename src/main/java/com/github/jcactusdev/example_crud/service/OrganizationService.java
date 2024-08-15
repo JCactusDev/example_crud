@@ -2,11 +2,13 @@ package com.github.jcactusdev.example_crud.service;
 
 import com.github.jcactusdev.example_crud.entity.Organization;
 
+import java.util.List;
+
 public interface OrganizationService {
 
     Organization create(Organization organization);
 
-    Iterable<Organization> read();
+    List<Organization> read();
 
     Organization read(Long id);
 
@@ -16,10 +18,14 @@ public interface OrganizationService {
 
     void delete(Organization organization);
 
+    void deleteAll();
+
     Organization findById(Long id);
 
     boolean existsById(Long id);
 
     boolean existsByName(String Name);
+
+    long count();
 
 }
