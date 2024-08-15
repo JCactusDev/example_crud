@@ -2,7 +2,6 @@ package com.github.jcactusdev.example_crud.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import com.github.jcactusdev.example_crud.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class ClientOrderRestController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<ClientOrder> newClientOrder(@RequestBody ClientOrder clientOrder) {
+    public ResponseEntity<ClientOrder> create(@RequestBody ClientOrder clientOrder) {
         if (clientOrder == null
                 || clientOrder.getId() != null
                 || clientOrder.getOrganization() == null
@@ -81,13 +80,13 @@ public class ClientOrderRestController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<ClientOrder>> read() {
-        Iterable<ClientOrder> result = clientOrderServiceImpl.read();
-        return (StreamSupport.stream(result.spliterator(), false).count() == 0 ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(result, HttpStatus.OK));
+    public ResponseEntity<List<ClientOrder>> read() {
+        List<ClientOrder> result = clientOrderServiceImpl.read();
+        return (result.isEmpty() ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(result, HttpStatus.OK));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClientOrder> read(@PathVariable("id") Long id) {
+    public ResponseEntity<ClientOrder> readById(@PathVariable("id") Long id) {
         if (id == null
                 || id < 1) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

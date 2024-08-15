@@ -1,7 +1,9 @@
 package com.github.jcactusdev.example_crud.controller;
 
+import java.util.List;
 import java.util.stream.StreamSupport;
 
+import com.github.jcactusdev.example_crud.entity.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,9 +38,9 @@ public class ProductRestController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<Product>> read() {
-        Iterable<Product> result = service.read();
-        return (StreamSupport.stream(result.spliterator(), false).count() == 0 ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(result, HttpStatus.OK));
+    public ResponseEntity<List<Product>> read() {
+        List<Product> result = service.read();
+        return (result.isEmpty() ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(result, HttpStatus.OK));
     }
 
     @GetMapping("/{id}")

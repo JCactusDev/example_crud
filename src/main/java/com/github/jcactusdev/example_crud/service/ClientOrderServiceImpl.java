@@ -1,6 +1,9 @@
 package com.github.jcactusdev.example_crud.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +23,8 @@ public class ClientOrderServiceImpl implements ClientOrderService {
     }
 
     @Override
-    public Iterable<ClientOrder> read() {
-        return repository.findAll();
+    public List<ClientOrder> read() {
+        return StreamSupport.stream(repository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     @Override

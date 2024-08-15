@@ -2,11 +2,13 @@ package com.github.jcactusdev.example_crud.service;
 
 import com.github.jcactusdev.example_crud.entity.Client;
 
+import java.util.List;
+
 public interface ClientService {
 
     Client create(Client client);
 
-    Iterable<Client> read();
+    List<Client> read();
 
     Client read(Long id);
 
