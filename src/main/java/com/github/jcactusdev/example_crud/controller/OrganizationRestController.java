@@ -30,7 +30,13 @@ public class OrganizationRestController {
     public ResponseEntity<Organization> create(@RequestBody Organization organization) {
         if (organization == null
                 || organization.getId() != null
-                || organization.getName() == null) {
+                || organization.getName() == null
+                || organization.getFullName() == null
+                || organization.getShortName() == null
+                || organization.getType() == null
+                || organization.getTaxNumber() == null
+                || organization.getRegNumber() == null
+                || organization.getRegDate() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return (service.existsByName(organization.getName()) ? new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY) : new ResponseEntity<>(service.create(organization), HttpStatus.CREATED));
@@ -55,7 +61,13 @@ public class OrganizationRestController {
     public ResponseEntity<Organization> updateObject(@RequestBody Organization organization) {
         if (organization == null
                 || organization.getId() == null
-                || organization.getName() == null) {
+                || organization.getName() == null
+                || organization.getFullName() == null
+                || organization.getShortName() == null
+                || organization.getType() == null
+                || organization.getTaxNumber() == null
+                || organization.getRegNumber() == null
+                || organization.getRegDate() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (!service.existsById(organization.getId())) {

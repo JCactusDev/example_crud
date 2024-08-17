@@ -2,13 +2,14 @@ package com.github.jcactusdev.example_crud.controller;
 
 import com.github.jcactusdev.example_crud.entity.Organization;
 
-import jakarta.transaction.Transactional;
+import com.github.jcactusdev.example_crud.entity.OrganizationType;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -28,7 +29,12 @@ public class OrganizationRestControllerTest {
         organization = new Organization();
         organization.setId(null);
         organization.setName("Organization 1");
+        organization.setFullName("Organization FULL 1");
+        organization.setShortName("Organization SHORT 1");
+        organization.setType(OrganizationType.LegalPerson);
         organization.setTaxNumber("TAX NUMBER 1");
+        organization.setRegDate(LocalDate.of(2000, 1, 2));
+        organization.setRegNumber("REG NUMBER 1");
     }
 
     @Test

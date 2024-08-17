@@ -45,8 +45,26 @@ public class OrganizationServiceImpl implements OrganizationService {
         if (organization.getName() != null) {
             currentOrganization.setName(organization.getName());
         }
+        if (organization.getFullName() != null) {
+            currentOrganization.setFullName(organization.getFullName());
+        }
+        if (organization.getShortName() != null) {
+            currentOrganization.setShortName(organization.getShortName());
+        }
+        if (organization.getInternationalName() != null) {
+            currentOrganization.setInternationalName(organization.getInternationalName());
+        }
         if (organization.getTaxNumber() != null) {
             currentOrganization.setTaxNumber(organization.getTaxNumber());
+        }
+        if (organization.getRegNumber() != null) {
+            currentOrganization.setRegNumber(organization.getRegNumber());
+        }
+        if (organization.getRegDate() != null) {
+            currentOrganization.setRegDate(organization.getRegDate());
+        }
+        if (organization.getDescription() != null) {
+            currentOrganization.setDescription(organization.getDescription());
         }
         return repository.save(currentOrganization);
     }
