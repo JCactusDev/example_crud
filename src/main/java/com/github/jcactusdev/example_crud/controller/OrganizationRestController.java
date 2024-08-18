@@ -90,16 +90,15 @@ public class OrganizationRestController {
         return result == null ? new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED) : new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @DeleteMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Organization> deleteObject(@RequestBody Organization organization) {
-        if (organization == null
-                || organization.getId() == null) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Organization> deleteById(@PathVariable("id") Long id) {
+        if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        if (!service.existsById(organization.getId())) {
+        if (!service.existsById(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        service.delete(organization);
+        service.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

@@ -58,8 +58,8 @@ public class ClientOrderServiceImpl implements ClientOrderService {
     }
 
     @Override
-    public void delete(ClientOrder clientOrder) {
-        repository.delete(clientOrder);
+    public void deleteById(Long id) {
+        repository.deleteById(id);
     }
 
     @Override

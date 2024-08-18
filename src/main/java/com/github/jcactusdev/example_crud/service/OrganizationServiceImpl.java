@@ -70,8 +70,8 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public void delete(Organization organization) {
-        repository.delete(organization);
+    public void deleteById(Long id) {
+        repository.deleteById(id);
     }
 
     @Override

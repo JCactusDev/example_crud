@@ -14,7 +14,7 @@ public interface ProductService {
 
     Product updateObjectParams(Product product);
 
-    void delete(Product product);
+    void deleteById(Long id);
 
     void deleteAll();
 

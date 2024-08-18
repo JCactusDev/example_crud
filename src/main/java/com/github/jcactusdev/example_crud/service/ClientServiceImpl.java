@@ -49,8 +49,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void delete(Client client) {
-        repository.delete(client);
+    public void deleteById(Long id) {
+        repository.deleteById(id);
     }
 
     @Override

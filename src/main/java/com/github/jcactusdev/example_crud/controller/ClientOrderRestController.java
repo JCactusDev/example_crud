@@ -123,16 +123,15 @@ public class ClientOrderRestController {
         return result == null ? new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED) : new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public ResponseEntity<ClientOrder> delete(@RequestBody ClientOrder clientOrder) {
-        if (clientOrder == null
-                || clientOrder.getId() == null) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ClientOrder> deleteById(@PathVariable("id") Long id) {
+        if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        if (!clientOrderServiceImpl.existsById(clientOrder.getId())) {
+        if (!clientOrderServiceImpl.existsById(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        clientOrderServiceImpl.delete(clientOrder);
+        clientOrderServiceImpl.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

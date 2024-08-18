@@ -80,16 +80,15 @@ public class ProductRestController {
         return result == null ? new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED) : new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Product> deleteObject(@RequestBody Product product) {
-        if (product == null
-                || product.getId() == null) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Product> deleteById(@PathVariable("id") Long id) {
+        if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        if (!service.existsById(product.getId())) {
+        if (!service.existsById(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        service.delete(product);
+        service.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

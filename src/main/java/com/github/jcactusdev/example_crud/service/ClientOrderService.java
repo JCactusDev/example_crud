@@ -14,7 +14,7 @@ public interface ClientOrderService {
 
     ClientOrder updateObjectParams(ClientOrder clientOrder);
 
-    void delete(ClientOrder clientOrder);
+    void deleteById(Long id);
 
     void deleteAll();
 

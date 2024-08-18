@@ -109,8 +109,8 @@ public class OrganizationRestControllerTest {
 
     @Test
     @Order(7)
-    public void deleteObject() {
-        ResponseEntity<Organization> response = controller.deleteObject(organization);
+    public void deleteById() {
+        ResponseEntity<Organization> response = controller.deleteById(organization.getId());
         assertEquals(response.getStatusCode().value(), HttpStatus.NO_CONTENT.value());
         assertNull(response.getBody());
     }

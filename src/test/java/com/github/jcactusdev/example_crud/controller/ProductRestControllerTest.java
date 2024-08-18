@@ -104,8 +104,8 @@ public class ProductRestControllerTest {
 
     @Test
     @Order(7)
-    void deleteObject() {
-        ResponseEntity<Product> response = controller.deleteObject(product);
+    void deleteById() {
+        ResponseEntity<Product> response = controller.deleteById(product.getId());
         assertEquals(response.getStatusCode().value(), HttpStatus.NO_CONTENT.value());
         assertNull(response.getBody());
     }

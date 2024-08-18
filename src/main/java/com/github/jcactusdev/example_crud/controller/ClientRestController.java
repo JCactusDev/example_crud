@@ -79,16 +79,15 @@ public class ClientRestController {
         return result == null ? new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED) : new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Client> deleteObject(@RequestBody Client client) {
-        if (client == null
-                || client.getId() == null) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Client> deleteById(@PathVariable("id") Long id) {
+        if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        if (!service.existsById(client.getId())) {
+        if (!service.existsById(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        service.delete(client);
+        service.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

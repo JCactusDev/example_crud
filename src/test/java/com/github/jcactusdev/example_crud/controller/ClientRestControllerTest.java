@@ -103,8 +103,8 @@ public class ClientRestControllerTest {
 
     @Test
     @Order(7)
-    void deleteObject() {
-        ResponseEntity<Client> response = controller.deleteObject(client);
+    void deleteById() {
+        ResponseEntity<Client> response = controller.deleteById(client.getId());
         assertEquals(response.getStatusCode().value(), HttpStatus.NO_CONTENT.value());
         assertNull(response.getBody());
     }

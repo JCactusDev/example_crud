@@ -16,7 +16,7 @@ public interface ClientService {
 
     Client updateObjectParams(Client client);
 
-    void delete(Client client);
+    void deleteById(Long id);
 
     void deleteAll();
 
