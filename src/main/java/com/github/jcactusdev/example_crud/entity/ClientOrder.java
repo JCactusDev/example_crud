@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -48,6 +49,7 @@ public class ClientOrder implements Serializable {
     private List<ClientOrderPosition> positions;
 
     public ClientOrder() {
+        positions = new ArrayList<>();
     }
 
     public Long getId() {
@@ -87,15 +89,18 @@ public class ClientOrder implements Serializable {
     }
 
     public void setPositions(List<ClientOrderPosition> positions) {
-        this.positions = positions;
+        this.positions.clear();
+        positions.forEach(this::addPosition);
     }
 
     public void addPosition(ClientOrderPosition position) {
+        position.setClientOrder(this);
         positions.add(position);
     }
 
-    public void addPositions(List<ClientOrderPosition> positions) {
-        positions.addAll(positions);
+    public void removePosition(ClientOrderPosition position) {
+        position.setClientOrder(null);
+        positions.remove(position);
     }
 
     @Override
@@ -104,25 +109,21 @@ public class ClientOrder implements Serializable {
         if (this == otherObject) {
             return true;
         }
-
         // Проверка явного параметра == null
         if (otherObject == null) {
             return false;
         }
-
         // Проверка совпадения классов
         if (this.getClass() != otherObject.getClass()) {
             return false;
         }
-
         // Приведение otherObject к типу текущего класа
         ClientOrder other = (ClientOrder) otherObject;
-
         // Проверка хранимых значений в свойствах объекта
         return Objects.equals(organization, other.organization)
                 && Objects.equals(client, other.client)
                 && Objects.equals(status, other.status)
-                && Arrays.equals(positions.toArray(), other.positions.toArray());
+                && Objects.equals(positions, other.positions);
     }
 
     @Override

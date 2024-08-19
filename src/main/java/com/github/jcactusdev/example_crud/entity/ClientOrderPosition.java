@@ -44,8 +44,7 @@ public class ClientOrderPosition implements Serializable {
     @Column(name = "price")
     private double price;
 
-    public ClientOrderPosition() {
-    }
+    public ClientOrderPosition() {}
 
     public Long getId() {
         return id;
@@ -93,20 +92,16 @@ public class ClientOrderPosition implements Serializable {
         if (this == otherObject) {
             return true;
         }
-
         // Проверка явного параметра == null
         if (otherObject == null) {
             return false;
         }
-
         // Проверка совпадения классов
         if (this.getClass() != otherObject.getClass()) {
             return false;
         }
-
         // Приведение otherObject к типу текущего класа
         ClientOrderPosition other = (ClientOrderPosition) otherObject;
-
         // Проверка хранимых значений в свойствах объекта
         return Objects.equals(clientOrder, other.clientOrder)
                 && Objects.equals(product, other.product)

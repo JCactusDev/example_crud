@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import com.github.jcactusdev.example_crud.entity.ClientOrderPosition;
+import com.github.jcactusdev.example_crud.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,12 @@ public class ClientOrderServiceImpl implements ClientOrderService {
 
     @Autowired
     private ClientOrderRepository repository;
+
+    @Autowired
+    private OrganizationServiceImpl organizationServiceImpl;
+
+    @Autowired
+    private ClientServiceImpl clientServiceImpl;
 
     @Override
     public ClientOrder create(ClientOrder clientOrder) {
