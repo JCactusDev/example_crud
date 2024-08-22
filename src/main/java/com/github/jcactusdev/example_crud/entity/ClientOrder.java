@@ -2,11 +2,9 @@ package com.github.jcactusdev.example_crud.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -44,7 +42,7 @@ public class ClientOrder implements Serializable {
     @Column(name = "order_status")
     private ClientOrderStatus status;
 
-    @OneToMany(mappedBy = "clientOrder", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "clientOrder", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<ClientOrderPosition> positions;
 

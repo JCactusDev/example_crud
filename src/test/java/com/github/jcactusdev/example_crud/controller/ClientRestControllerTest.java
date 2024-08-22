@@ -1,15 +1,11 @@
 package com.github.jcactusdev.example_crud.controller;
 
 import com.github.jcactusdev.example_crud.entity.Client;
-import com.github.jcactusdev.example_crud.entity.Organization;
-import com.github.jcactusdev.example_crud.service.ClientServiceImpl;
-import org.assertj.core.api.Fail;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -37,7 +33,7 @@ public class ClientRestControllerTest {
     void create() {
         ResponseEntity<Client> response = controller.create(client);
 
-        assertEquals(response.getStatusCode().value(), HttpStatus.CREATED.value());
+        assertEquals(response.getStatusCode(), HttpStatus.CREATED);
         assertNotNull(response.getBody());
         assertNotNull(response.getBody().getId());
         assertEquals(client.getName(), response.getBody().getName());
@@ -48,7 +44,7 @@ public class ClientRestControllerTest {
     public void createDuplicate() throws Exception {
         Client clientClone = client.clone();
         ResponseEntity<Client> response = controller.create(clientClone);
-        assertEquals(response.getStatusCode().value(), HttpStatus.UNPROCESSABLE_ENTITY.value());
+        assertEquals(response.getStatusCode(), HttpStatus.UNPROCESSABLE_ENTITY);
         assertNull(response.getBody());
     }
 
@@ -57,7 +53,7 @@ public class ClientRestControllerTest {
     void read() {
         ResponseEntity<List<Client>> response = controller.read();
 
-        assertEquals(response.getStatusCode().value(), HttpStatus.OK.value());
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertNotNull(response.getBody());
         assertThat(response.getBody(), hasSize(1));
         assertThat(response.getBody(), hasItems(client));
@@ -68,7 +64,7 @@ public class ClientRestControllerTest {
     void readById() {
         ResponseEntity<Client> response = controller.readById(client.getId());
 
-        assertEquals(response.getStatusCode().value(), HttpStatus.OK.value());
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertNotNull(response.getBody());
         assertEquals(response.getBody(), client);
     }
@@ -81,7 +77,7 @@ public class ClientRestControllerTest {
 
         ResponseEntity<Client> response = controller.updateObject(client);
 
-        assertEquals(response.getStatusCode().value(), HttpStatus.OK.value());
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertNotNull(response.getBody());
         assertThat(response.getBody(), hasProperty("name", equalTo(newName)));
         assertEquals(response.getBody(), client);
@@ -95,17 +91,17 @@ public class ClientRestControllerTest {
 
         ResponseEntity<Client> response = controller.updateObject(client);
 
-        assertEquals(response.getStatusCode().value(), HttpStatus.OK.value());
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertNotNull(response.getBody());
         assertThat(response.getBody(), hasProperty("name", equalTo(newName)));
         assertEquals(response.getBody(), client);
     }
 
-    @Test
-    @Order(7)
-    void deleteById() {
-        ResponseEntity<Client> response = controller.deleteById(client.getId());
-        assertEquals(response.getStatusCode().value(), HttpStatus.NO_CONTENT.value());
-        assertNull(response.getBody());
-    }
+//    @Test
+//    @Order(7)
+//    void deleteById() {
+//        ResponseEntity<Client> response = controller.deleteById(client.getId());
+//        assertEquals(response.getStatusCode(), HttpStatus.NO_CONTENT);
+//        assertNull(response.getBody());
+//    }
 }

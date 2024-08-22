@@ -8,6 +8,6 @@ import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 
 @Suite
-@SelectClasses({OrganizationRestControllerTest.class, ClientRestControllerTest.class, ProductRestControllerTest.class, ClientOrderRestControllerTest.class})
+@SelectClasses(value = {OrganizationRestControllerTest.class, ClientRestControllerTest.class, ProductRestControllerTest.class, ClientOrderRestControllerTest.class})
 class ExampleCrudApplicationTests {}
 
