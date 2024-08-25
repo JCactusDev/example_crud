@@ -118,7 +118,8 @@ public class ClientOrder implements Serializable {
         // Приведение otherObject к типу текущего класа
         ClientOrder other = (ClientOrder) otherObject;
         // Проверка хранимых значений в свойствах объекта
-        return Objects.equals(organization, other.organization)
+        return Objects.equals(id, other.id)
+                && Objects.equals(organization, other.organization)
                 && Objects.equals(client, other.client)
                 && Objects.equals(status, other.status)
                 && Objects.equals(positions, other.positions);

@@ -175,7 +175,8 @@ public class Organization implements Serializable {
         // Приведение otherObject к типу текущего класа
         Organization other = (Organization) otherObject;
         // Проверка хранимых значений в свойствах объекта
-        return Objects.equals(name, other.name)
+        return Objects.equals(id, other.id)
+                && Objects.equals(name, other.name)
                 && Objects.equals(fullName, other.fullName)
                 && Objects.equals(shortName, other.shortName)
                 && Objects.equals(internationalName, other.internationalName)

@@ -3,6 +3,8 @@ package com.github.jcactusdev.example_crud.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -28,12 +30,6 @@ public class ClientOrderPosition implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "client_order_id", referencedColumnName = "id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonBackReference
-    private ClientOrder clientOrder;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
@@ -44,6 +40,12 @@ public class ClientOrderPosition implements Serializable {
     @Column(name = "price")
     private double price;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "client_order_id", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonBackReference
+    private ClientOrder clientOrder;
+
     public ClientOrderPosition() {}
 
     public Long getId() {
@@ -52,14 +54,6 @@ public class ClientOrderPosition implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public ClientOrder getClientOrder() {
-        return clientOrder;
-    }
-
-    public void setClientOrder(ClientOrder clientOrder) {
-        this.clientOrder = clientOrder;
     }
 
     public Product getProduct() {
@@ -86,6 +80,19 @@ public class ClientOrderPosition implements Serializable {
         this.price = price;
     }
 
+    public ClientOrder getClientOrder() {
+        return clientOrder;
+    }
+
+    public void setClientOrder(ClientOrder clientOrder) {
+        this.clientOrder = clientOrder;
+    }
+
+    @JsonGetter("index")
+    public int getIndex() {
+        return clientOrder.getPositions().indexOf(this);
+    }
+
     @Override
     public boolean equals(Object otherObject) {
         // Проверка объектов на идентичность
@@ -103,25 +110,26 @@ public class ClientOrderPosition implements Serializable {
         // Приведение otherObject к типу текущего класа
         ClientOrderPosition other = (ClientOrderPosition) otherObject;
         // Проверка хранимых значений в свойствах объекта
-        return Objects.equals(clientOrder, other.clientOrder)
+        return Objects.equals(id, other.id)
                 && Objects.equals(product, other.product)
                 && count == other.count
-                && price == other.price;
+                && price == other.price
+                && Objects.equals(clientOrder, other.clientOrder);
     }
 
     @Override
     public int hashCode() {
         return 31 * ((id == null) ? 0 : id.hashCode())
-                + 31 * ((clientOrder == null) ? 0 : clientOrder.hashCode())
                 + 31 * ((product == null) ? 0 : product.hashCode())
                 + 31 * Double.valueOf(count).hashCode()
-                + 31 * Double.valueOf(price).hashCode();
+                + 31 * Double.valueOf(price).hashCode()
+                + 31 * ((clientOrder == null) ? 0 : clientOrder.hashCode());
     }
 
     @Override
     public String toString() {
-        return "ClientOrderPosition [id=" + id + ", clientOrder=" + clientOrder.toString() + ", product=" + product.toString() + ", count="
-                + count + ", price=" + price + "]";
+        return "ClientOrderPosition [id=" + id + ", index=" + getIndex() + ", product=" + product.toString() + ", count="
+                + count + ", price=" + price + ", clientOrder=" + clientOrder.toString() + "]";
     }
 
     @Override
@@ -132,10 +140,10 @@ public class ClientOrderPosition implements Serializable {
         } catch (CloneNotSupportedException e) {
             cloneObject = new ClientOrderPosition();
         }
-        cloneObject.clientOrder = clientOrder.clone();
         cloneObject.product = product.clone();
         cloneObject.count = count;
         cloneObject.price = price;
+        cloneObject.clientOrder = clientOrder.clone();
         return cloneObject;
     }
 }
